@@ -541,9 +541,17 @@ int main(int argc, char *argv[]) {
             fprintf(OUT, "Third argument (the fen string) required.\n");
             continue;
           }
-          ix = 0;
-          fen_to_pos(&gme[ix], tok[2]);
-          n = 3;
+          if (token_count > 3 && (strcmp(tok[3], "W") == 0 || strcmp(tok[3], "B") == 0)) {
+            char fen_tok[BOARD_WIDTH * BOARD_WIDTH * 2 + BOARD_WIDTH + 2];
+            sprintf(fen_tok, "%s %s", tok[2], tok[3]);
+            ix = 0;
+            fen_to_pos(&gme[ix], fen_tok);
+            n = 4;
+          } else {
+            ix = 0;
+            fen_to_pos(&gme[ix], tok[2]);
+            n = 3;
+          }
         }
 
         int save_ix = ix;
