@@ -24,7 +24,7 @@ tt.c:
         hashtable storing positions seen by the player and some other
         relevant information for evaluating a position).
 
-util:
+util.c:
         Utility functions, such as random number generator, printing
         debugging messages, etc.
 
@@ -33,3 +33,8 @@ fen.c:
         notation in doc/engine-interface.txt), so the program needs to
         translate a FEN string into the underlying board
         representation, and this file contains that logic.
+
+speculative_add.c:
+	For the parallel scout search, this utility function provides
+	a reducer that adds up its arguments, but if an abort occurs,
+	it does not add in the updates by aborted subcomputations.

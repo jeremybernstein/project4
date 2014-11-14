@@ -584,7 +584,7 @@ int main(int argc, char *argv[]) {
         // TODO: Change the name & version once you start modifying the code!
         printf("id name %s version %s\n", "Leiserchess", VERSION);
         printf("id author %s\n",
-            "Don Dailey, Charles E. Leiserson, and the staff of MIT 6.172 Fall 2012");
+            "Don Dailey, Charles E. Leiserson, and the staff of MIT 6.172");
         print_options();
         printf("uciok\n");
         continue;
