@@ -723,6 +723,7 @@ int main(int argc, char *argv[]) {
         double inc = 0.0;
         int    depth = INF_DEPTH; 
         double goal = INF_TIME;
+        bool quit = false;
 
         // process various tokens here
         for (int n = 1; n < token_count; n++) {
@@ -741,6 +742,10 @@ int main(int argc, char *argv[]) {
             inc = strtod(tok[n], (char **)NULL);
             continue;
           }
+
+          if (strcmp(tok[n], "quit") == 0){
+            quit = true;
+          }
         }
 
         if (depth < INF_DEPTH) {
@@ -752,8 +757,12 @@ int main(int argc, char *argv[]) {
           if (goal*10 > tme) goal = tme / 10.0;   
 
           UciBeginSearch( &gme[ix], INF_DEPTH, goal );
-        } 
-        continue;
+        }
+        if (quit) {
+          break;
+        } else {
+          continue;
+        }
       }
 
       if (strcmp(tok[0], "perft") == 0) { // Test move generator

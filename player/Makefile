@@ -22,6 +22,10 @@ ifeq ($(REFERENCE),1)
 	CFLAGS += -DRUN_REFERENCE_CODE=1
 endif
 
+ifeq ($(DEPTH), 0)
+	DEPTH=8
+endif
+
 LDFLAGS= -Wall -lrt -lm -lcilkrts -ldl -lpthread
 
 .PHONY : default clean 
