@@ -22,7 +22,7 @@ ifeq ($(REFERENCE),1)
 	CFLAGS += -DRUN_REFERENCE_CODE=1
 endif
 
-ifeq ($(DEPTH), 0)
+ifndef DEPTH
 	DEPTH=8
 endif
 
