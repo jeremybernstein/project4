@@ -1,4 +1,4 @@
-.PHONY: prof run
+.PHONY: perf run
 
 CXX = gcc
 TARGET := leiserchess
@@ -56,7 +56,7 @@ leiserchess : leiserchess.o $(OBJ)
 clean :
 	rm -f *.o *.d* *~ $(TARGET)
 
-prof: clean leiserchess
+perf: clean leiserchess
 	echo "go depth $(DEPTH) quit" | perf record ./leiserchess && perf report
 
 run: leiserchess
