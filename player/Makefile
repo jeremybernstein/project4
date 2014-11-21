@@ -1,3 +1,5 @@
+.PHONY: prof run
+
 CXX = gcc
 TARGET := leiserchess
 SRC := util.c tt.c fen.c move_gen.c search.c eval.c abort.c speculative_add.c
@@ -49,3 +51,9 @@ leiserchess : leiserchess.o $(OBJ)
 
 clean :
 	rm -f *.o *.d* *~ $(TARGET)
+
+prof: clean leiserchess
+	echo "go depth $(DEPTH) quit" | perf record ./leiserchess && perf report
+
+run: leiserchess
+	echo "go depth $(DEPTH) quit" | ./leiserchess >> .output && python parse_score.py
