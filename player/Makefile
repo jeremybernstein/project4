@@ -1,3 +1,5 @@
+.PHONY: perf run
+
 CXX = gcc
 TARGET := leiserchess
 SRC := util.c tt.c fen.c move_gen.c search.c eval.c abort.c speculative_add.c
@@ -18,6 +20,10 @@ endif
 
 ifeq ($(REFERENCE),1)
 	CFLAGS += -DRUN_REFERENCE_CODE=1
+endif
+
+ifndef DEPTH
+	DEPTH=8
 endif
 
 LDFLAGS= -Wall -lrt -lm -lcilkrts -ldl -lpthread
@@ -49,3 +55,9 @@ leiserchess : leiserchess.o $(OBJ)
 
 clean :
 	rm -f *.o *.d* *~ $(TARGET)
+
+perf: clean leiserchess
+	echo "go depth $(DEPTH) quit" | perf record ./leiserchess && perf report
+
+run: leiserchess
+	echo "go depth $(DEPTH) quit" | ./leiserchess >> .output && python parse_score.py
